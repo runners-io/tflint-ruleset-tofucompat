@@ -1,0 +1,70 @@
+# tofucompat (RUN-1385): check Terraform configuration for constructs a given
+# OpenTofu release cannot run, in your own CI.
+#
+#     - uses: actions/checkout@<sha>
+#     - uses: runners-io/tflint-ruleset-tofucompat@<sha> # v0.1.0
+#       with:
+#         opentofu-version: "1.10"     # default: latest
+#
+# Findings become annotations on the pull request; an Error finding fails the
+# step (a Warning does not, unless strict is true).
+#
+# WHERE IT LIVES. The source is this directory in runners.io's private
+# monorepo (services/tfwarp/tofucompat). An action in a private repository can
+# be used only from inside it, so customers use the PUBLIC copy,
+# runners-io/tflint-ruleset-tofucompat, whose root is this directory byte for
+# byte. It is produced from here by services/tfwarp/hack/publish-tofucompat.sh,
+# and published-claims-are-true.yml fails daily while the two differ, so a
+# change lands here first and is then published (RUN-1385). The monorepo's
+# own CI (tfwarp-ci.yml's tofucompat job) runs this action from this
+# directory on a must-flag and a clean fixture.
+#
+# Published as: runners-io/tflint-ruleset-tofucompat
+#
+# It BUILDS the checker from this directory's source with the Go toolchain the
+# go.mod names, rather than downloading a binary, so it needs no release to
+# exist and what runs is exactly the source at the ref you pinned.
+name: tofucompat
+description: >-
+  Check Terraform configuration for constructs the chosen OpenTofu release
+  cannot run, with the fix for each.
+author: runners.io
+
+inputs:
+  opentofu-version:
+    description: '"latest", a line such as "1.10", or a full version.'
+    default: latest
+  working-directory:
+    description: Directory to check, recursively.
+    default: .
+  strict:
+    description: Fail on warnings too.
+    default: "false"
+  format:
+    description: '"github" (annotations), "text" or "json".'
+    default: github
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      with:
+        go-version-file: ${{ github.action_path }}/go.mod
+        cache: false
+    - name: Build tofucompat
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: go build -trimpath -o "$RUNNER_TEMP/tofucompat" ./cmd/tofucompat
+    - name: Check
+      shell: bash
+      env:
+        TOFUCOMPAT_VERSION: ${{ inputs.opentofu-version }}
+        TOFUCOMPAT_DIR: ${{ inputs.working-directory }}
+        TOFUCOMPAT_STRICT: ${{ inputs.strict }}
+        TOFUCOMPAT_FORMAT: ${{ inputs.format }}
+      run: |
+        args=(-opentofu-version "$TOFUCOMPAT_VERSION" -format "$TOFUCOMPAT_FORMAT")
+        if [ "$TOFUCOMPAT_STRICT" = "true" ]; then
+          args+=(-strict)
+        fi
+        "$RUNNER_TEMP/tofucompat" "${args[@]}" "$TOFUCOMPAT_DIR"

@@ -1,0 +1,751 @@
+{
+  "measured_at": "2026-10-18T13:07:30Z",
+  "versions": [
+    "1.6.3",
+    "1.7.10",
+    "1.8.11",
+    "1.9.4",
+    "1.10.10",
+    "1.11.14",
+    "1.12.7",
+    "1.13.1"
+  ],
+  "rules": {
+    "tofucompat_action_block": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_action_trigger": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_builtin_provider_function": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_cloud_block_hostname": {
+      "phase": "init",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_convert_function": {
+      "phase": "plan",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_deprecated_argument": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_ephemeral_output": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_ephemeral_resource": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_ephemeral_variable": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_ephemeralasnull_function": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_import_for_each": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_import_in_child_module": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_issensitive_function": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_lifecycle_destroy": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_module_source_expression": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_moved_cross_type": {
+      "phase": "plan",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_output_type": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_provider_function": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_query_file": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_removed_block": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_removed_lifecycle": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_removed_without_lifecycle": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "failed: Error: Unsupported block type    on main.tf line 1:    1: removed {  Blocks of type \"removed\" are not expected here. Did you mean \"moved\"?  ",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_required_version": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_s3_use_lockfile": {
+      "phase": "init",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_stacks_file": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_templatestring_function": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_terraform_applying": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_terraform_data_store": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_test_mocks": {
+      "phase": "test",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_test_run_options": {
+      "phase": "test",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_unsupported_backend": {
+      "phase": "init",
+      "flag": {
+        "1.10.10": "refused",
+        "1.11.14": "refused",
+        "1.12.7": "refused",
+        "1.13.1": "refused",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "refused"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    },
+    "tofucompat_validation_cross_reference": {
+      "phase": "validate",
+      "flag": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "refused",
+        "1.7.10": "refused",
+        "1.8.11": "refused",
+        "1.9.4": "accepted"
+      },
+      "clean": {
+        "1.10.10": "accepted",
+        "1.11.14": "accepted",
+        "1.12.7": "accepted",
+        "1.13.1": "accepted",
+        "1.6.3": "accepted",
+        "1.7.10": "accepted",
+        "1.8.11": "accepted",
+        "1.9.4": "accepted"
+      }
+    }
+  }
+}

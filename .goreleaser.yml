@@ -1,0 +1,84 @@
+# The tofucompat release (RUN-1385): the tflint plugin and the standalone CLI.
+#
+# Run by .github/workflows/release.yml in the PUBLIC repository
+# runners-io/tflint-ruleset-tofucompat, on a pushed v*.*.* tag. The public
+# repository is this directory, byte for byte; it is produced from the
+# runners.io monorepo (services/tfwarp/tofucompat) by
+# services/tfwarp/hack/publish-tofucompat.sh, and a daily check there fails
+# when the two differ.
+#
+# THE ASSET NAMES ARE tflint's CONTRACT, not a style choice. `tflint --init`
+# with `source = "github.com/runners-io/tflint-ruleset-tofucompat"` and
+# `version = "X.Y.Z"` fetches release vX.Y.Z and looks for exactly:
+#
+#   tflint-ruleset-tofucompat_<os>_<arch>.zip   holding a binary of that name
+#   checksums.txt                               sha256 of every asset
+#   checksums.txt.sig                           a detached PGP signature over it,
+#                                               checked against the plugin
+#                                               block's signing_key
+#
+# This follows terraform-linters/tflint-ruleset-template. The CLI ships beside
+# the plugin as tofucompat_<os>_<arch>.zip, covered by the same checksums.txt.
+#
+# Local dry run, no signing, publishes nothing:
+#
+#   goreleaser release --snapshot --clean --skip=sign
+version: 2
+
+project_name: tflint-ruleset-tofucompat
+
+env:
+  - CGO_ENABLED=0
+
+builds:
+  - id: plugin
+    main: ./cmd/tflint-ruleset-tofucompat
+    binary: tflint-ruleset-tofucompat
+    flags: [-trimpath]
+    # tflint compares the plugin's reported version with the plugin block's
+    # `version`, so the tag (without its v) is stamped in.
+    ldflags: ["-s -w -X main.version={{ .Version }}"]
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+  - id: cli
+    main: ./cmd/tofucompat
+    binary: tofucompat
+    flags: [-trimpath]
+    ldflags: ["-s -w -X main.version={{ .Version }}"]
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+
+archives:
+  - id: plugin
+    ids: [plugin]
+    name_template: "tflint-ruleset-tofucompat_{{ .Os }}_{{ .Arch }}"
+    formats: [zip]
+    # The binary alone: tflint's installer extracts the file named after the
+    # plugin, and the template ships nothing else.
+    files: [none*]
+  - id: cli
+    ids: [cli]
+    name_template: "tofucompat_{{ .Os }}_{{ .Arch }}"
+    formats: [zip]
+    files: [LICENSE, README.md]
+
+checksum:
+  name_template: checksums.txt
+  algorithm: sha256
+
+signs:
+  - artifacts: checksum
+    args: ["--batch", "-u", "{{ .Env.GPG_FINGERPRINT }}", "--output", "${signature}", "--detach-sign", "${artifact}"]
+
+changelog:
+  disable: true
+
+release:
+  github:
+    owner: runners-io
+    name: tflint-ruleset-tofucompat
+  header: |
+    The OpenTofu-compatibility rules for Terraform configuration, as a tflint
+    plugin and a standalone CLI. Install and verification: see the README.

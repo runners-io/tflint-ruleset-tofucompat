@@ -1,0 +1,49 @@
+# Tests on a pull request or a push to main (RUN-1385).
+#
+# Takes effect only in the PUBLIC repository runners-io/tflint-ruleset-tofucompat
+# (this directory is its root; see release.yml's header). The monorepo's
+# tfwarp-ci.yml runs the same tests, and more, on the source. This job is for a
+# pull request opened against the public copy, which is ported to the monorepo
+# rather than merged here: a change merged only here would be overwritten by
+# the next publish.
+#
+# GitHub-hosted for the reason release.yml gives: free for a public repository,
+# and a fork's pull request must never reach a self-hosted runner.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: vet and test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Vet and test
+        shell: bash
+        run: |
+          go vet ./...
+          go test -count=1 -v ./... > "$RUNNER_TEMP/test.log" 2>&1 || { cat "$RUNNER_TEMP/test.log"; exit 1; }
+          ran=$(grep -c '^=== RUN' "$RUNNER_TEMP/test.log")
+          echo "tests run: $ran"
+          if [ "$ran" -lt 25 ]; then
+            echo "::error::only $ran tests ran"
+            exit 1
+          fi

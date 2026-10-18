@@ -1,0 +1,111 @@
+# Release the tflint plugin and the CLI (RUN-1385).
+#
+# THIS FILE TAKES EFFECT ONLY IN THE PUBLIC REPOSITORY
+# runners-io/tflint-ruleset-tofucompat, where this directory is the root. In
+# the runners.io monorepo it sits at services/tfwarp/tofucompat/.github/ and
+# GitHub never reads it there. It is kept in the monorepo because the public
+# repository is produced from that directory byte for byte
+# (services/tfwarp/hack/publish-tofucompat.sh), so a release workflow anywhere
+# else would be a second copy nothing compares.
+#
+# A pushed vX.Y.Z tag builds, signs and publishes the assets tflint's plugin
+# installer expects (.goreleaser.yml's header has the contract), then verifies
+# its own signature before it ends: a release whose checksums.txt.sig does not
+# verify against the published key fails every customer's `tflint --init`.
+#
+# GITHUB-HOSTED, NOT ghwarp-*, deliberately. A public repository's jobs on
+# GitHub-hosted runners are free, so the cost reason for routing CI to our own
+# runners does not apply; and GitHub's guidance is that self-hosted runners
+# should not serve public repositories at all (see
+# docs/cache-and-sticky-disk-trust-model.md in the monorepo).
+#
+# The signing key's private half is the GPG_PRIVATE_KEY Actions secret of the
+# `release` environment, which only v*.*.* tags may deploy to. A same-day copy
+# is kept in runners.io's secret store, so losing this one is not losing the
+# key (the monorepo's CLAUDE.md, secrets inventory).
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions: {}
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: build, sign, publish and verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: release
+    permissions:
+      contents: write # create the release and upload its assets
+      id-token: write # artifact attestation
+      attestations: write # store the attestation of checksums.txt
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          # No cache in a release job: a poisoned cache would ship.
+          cache: false
+
+      - name: Vet and test before anything is published
+        shell: bash
+        run: |
+          go vet ./...
+          go test -count=1 -v ./... > "$RUNNER_TEMP/test.log" 2>&1 || { cat "$RUNNER_TEMP/test.log"; exit 1; }
+          ran=$(grep -c '^=== RUN' "$RUNNER_TEMP/test.log")
+          echo "tests run: $ran"
+          # A pattern or a build tag that matched nothing would also exit 0.
+          if [ "$ran" -lt 25 ]; then
+            echo "::error::only $ran tests ran"
+            exit 1
+          fi
+
+      - name: Import the signing key
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd # v7.0.0
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+
+      - name: GoReleaser
+        uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
+        with:
+          distribution: goreleaser
+          version: v2.18.2
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GPG_FINGERPRINT: ${{ steps.gpg.outputs.fingerprint }}
+
+      - name: The signature verifies against the published key, and every asset is checksummed
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd dist
+          # Against a keyring holding ONLY the README's public key, so this
+          # cannot pass on some other key the runner happens to trust.
+          export GNUPGHOME="$RUNNER_TEMP/verify-gnupg"
+          mkdir -m 700 "$GNUPGHOME"
+          gpg --batch --import "$GITHUB_WORKSPACE/signing-key.asc"
+          gpg --batch --verify checksums.txt.sig checksums.txt
+          sha256sum --check --strict checksums.txt
+          n=$(wc -l < checksums.txt)
+          echo "checksummed assets: $n"
+          if [ "$n" -ne 12 ]; then
+            echo "::error::expected 12 zips (plugin and CLI, 6 platforms each), checksums.txt lists $n"
+            exit 1
+          fi
+
+      - uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: dist/checksums.txt

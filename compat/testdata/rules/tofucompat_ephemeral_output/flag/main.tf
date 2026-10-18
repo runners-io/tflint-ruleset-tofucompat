@@ -1,0 +1,3 @@
+module "secrets" {
+  source = "./secrets"
+}
