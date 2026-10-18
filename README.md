@@ -77,10 +77,20 @@ tflint            # reports findings
 tflint --fix      # applies the mechanical fixes
 ```
 
-`tflint --init` refuses the download unless `checksums.txt.sig` verifies
-against `signing_key`, and the plugin's zip matches its line in
-`checksums.txt`. The same public key is in this repository as
-[`signing-key.asc`](signing-key.asc). Its fingerprint is:
+`tflint --init` verifies `checksums.txt` before it installs anything, and
+then checks the plugin's zip against its line in that file. How it verifies
+`checksums.txt` depends on your tflint version:
+
+- **tflint 0.55 and later** check the GitHub artifact attestation that this
+  repository's release workflow publishes for `checksums.txt`. That check is
+  keyless: it accepts only an attestation made by a workflow in this
+  repository, and it does not read `signing_key`.
+- **Earlier versions** check `checksums.txt.sig` against `signing_key`, and
+  refuse a signature made by any other key.
+
+Every release carries both, so the plugin block above works with either. The
+same public key is in this repository as [`signing-key.asc`](signing-key.asc).
+Its fingerprint is:
 
 ```
 F969 8EFB A827 43A3 D19E  A02E CBDD 508D 14E0 D159
@@ -113,6 +123,9 @@ Or build it from source with Go:
 ```sh
 go install github.com/runners-io/tflint-ruleset-tofucompat/cmd/tofucompat@v0.1.0
 ```
+
+A binary built this way runs the same rules, but `tofucompat -version`
+reports `dev`, because only the release build stamps the version in.
 
 Usage:
 
