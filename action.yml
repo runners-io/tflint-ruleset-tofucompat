@@ -2,7 +2,7 @@
 # OpenTofu release cannot run, in your own CI.
 #
 #     - uses: actions/checkout@<sha>
-#     - uses: runners-io/tflint-ruleset-tofucompat@<sha> # v0.1.0
+#     - uses: runners-io/tflint-ruleset-tofucompat@<sha> # v0.1.1
 #       with:
 #         opentofu-version: "1.10"     # default: latest
 #

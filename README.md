@@ -28,7 +28,7 @@ Add this to `.tflint.hcl`:
 ```hcl
 plugin "tofucompat" {
   enabled = true
-  version = "0.1.0"
+  version = "0.1.1"
   source  = "github.com/runners-io/tflint-ruleset-tofucompat"
 
   # Optional. "latest" (the default), a line such as "1.10", or a full version.
@@ -121,11 +121,11 @@ unzip tofucompat_linux_amd64.zip
 Or build it from source with Go:
 
 ```sh
-go install github.com/runners-io/tflint-ruleset-tofucompat/cmd/tofucompat@v0.1.0
+go install github.com/runners-io/tflint-ruleset-tofucompat/cmd/tofucompat@v0.1.1
 ```
 
-A binary built this way runs the same rules, but `tofucompat -version`
-reports `dev`, because only the release build stamps the version in.
+A binary built this way runs the same rules, and `tofucompat -version`
+reports the version it was installed at.
 
 Usage:
 
@@ -162,7 +162,7 @@ at the ref you pin, so what runs is exactly that source. Pin it by commit SHA:
 
 ```yaml
 - uses: actions/checkout@<sha>
-- uses: runners-io/tflint-ruleset-tofucompat@<sha> # v0.1.0
+- uses: runners-io/tflint-ruleset-tofucompat@<sha> # v0.1.1
   with:
     opentofu-version: latest   # or "1.10"
     working-directory: .

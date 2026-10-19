@@ -21,10 +21,16 @@ import (
 	"strings"
 
 	"github.com/runners-io/tflint-ruleset-tofucompat/compat"
+	"github.com/runners-io/tflint-ruleset-tofucompat/internal/buildversion"
 )
 
 // version is stamped at release time with -ldflags "-X main.version=...".
+// A `go install …@vX.Y.Z` build has no stamp and reads the module version
+// instead (RUN-1410); see buildVersion.
 var version = "dev"
+
+// buildVersion is the version this binary reports.
+func buildVersion() string { return buildversion.Resolve(version, "dev") }
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdout, os.Stderr))
@@ -53,7 +59,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		return 2
 	}
 	if *showVer {
-		fmt.Fprintf(stdout, "tofucompat %s (rules measured against OpenTofu %s to %s)\n", version, compat.Supported[0], compat.Latest)
+		fmt.Fprintf(stdout, "tofucompat %s (rules measured against OpenTofu %s to %s)\n", buildVersion(), compat.Supported[0], compat.Latest)
 		return 0
 	}
 	if *listRules {
