@@ -23,7 +23,7 @@ var Supported = []string{
 	"1.10.10",
 	"1.11.14",
 	"1.12.7",
-	"1.13.1",
+	"1.13.2",
 }
 
 // Latest is the newest OpenTofu release the rules know about, and the default
