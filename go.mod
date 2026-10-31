@@ -1,5 +1,12 @@
 module github.com/runners-io/tflint-ruleset-tofucompat
 
+// RUN-2409 (2026-10-31): x/net v0.60.0, grpc v1.83.2 and x/text v0.43.0 fix the
+// eight CALLED govulncheck findings this module carried (GO-2026-6617, 6612,
+// 6611, 6603 in x/net; 6443, 6348, 6061 in grpc; 5970 in x/text). All three are
+// over two weeks old (2026-10-08, 2026-08-25, 2026-10-09), so no exception to
+// the two-week rule applies. x/net v0.62.0 (GO-2026-6860 and 6866) is four days
+// old and those two are imported, not called, so it is deliberately not taken.
+
 go 1.26.10
 
 require (
@@ -24,13 +31,13 @@ require (
 	github.com/oklog/run v1.1.0 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
-	golang.org/x/mod v0.36.0 // indirect
-	golang.org/x/net v0.54.0 // indirect
-	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.44.0 // indirect
-	golang.org/x/text v0.37.0 // indirect
-	golang.org/x/tools v0.45.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20260226221140-a57be14db171 // indirect
-	google.golang.org/grpc v1.81.1 // indirect
+	golang.org/x/mod v0.41.0 // indirect
+	golang.org/x/net v0.60.0 // indirect
+	golang.org/x/sync v0.24.0 // indirect
+	golang.org/x/sys v0.48.0 // indirect
+	golang.org/x/text v0.43.0 // indirect
+	golang.org/x/tools v0.51.0 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
+	google.golang.org/grpc v1.83.2 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
