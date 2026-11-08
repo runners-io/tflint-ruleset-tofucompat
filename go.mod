@@ -4,8 +4,11 @@ module github.com/runners-io/tflint-ruleset-tofucompat
 // eight CALLED govulncheck findings this module carried (GO-2026-6617, 6612,
 // 6611, 6603 in x/net; 6443, 6348, 6061 in grpc; 5970 in x/text). All three are
 // over two weeks old (2026-10-08, 2026-08-25, 2026-10-09), so no exception to
-// the two-week rule applies. x/net v0.62.0 (GO-2026-6860 and 6866) is four days
-// old and those two are imported, not called, so it is deliberately not taken.
+// the two-week rule applies. x/net v0.62.0 (GO-2026-6860 and 6866) was four days
+// old and those two are imported, not called, so it was deliberately not taken.
+// 2026-11-07: v0.62.0 is taken (with x/sys v0.49.0, which it requires) because
+// CVE-2026-78661 (HIGH, fixed in 0.62.0) turned the stack vulnerability scan red
+// on every pull request through this go.mod; both engines already carry v0.62.0.
 
 go 1.26.10
 
@@ -32,9 +35,9 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	golang.org/x/mod v0.41.0 // indirect
-	golang.org/x/net v0.60.0 // indirect
+	golang.org/x/net v0.62.0 // indirect
 	golang.org/x/sync v0.24.0 // indirect
-	golang.org/x/sys v0.48.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
 	golang.org/x/text v0.43.0 // indirect
 	golang.org/x/tools v0.51.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260526163538-3dc84a4a5aaa // indirect
