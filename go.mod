@@ -10,7 +10,7 @@ module github.com/runners-io/tflint-ruleset-tofucompat
 // CVE-2026-78661 (HIGH, fixed in 0.62.0) turned the stack vulnerability scan red
 // on every pull request through this go.mod; both engines already carry v0.62.0.
 
-go 1.26.10
+go 1.26.11
 
 require (
 	github.com/hashicorp/go-version v1.9.0
